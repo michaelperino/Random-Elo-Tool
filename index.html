@@ -7,21 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 
 
-    <title>Hello, world!</title>
+    <title>Random Elo Tool</title>
     <style>
         body {
             background: linear-gradient(to right, #ff7e5f, #feb47b);
@@ -30,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            /* color: white; */
             flex-direction: column;
         }
 
@@ -81,73 +71,183 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top w-100">
+        <a class="navbar-brand mx-auto" href="#">Random Elo Tool</a>
+        <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#modalForItemEntries">New Entries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#modalItemElos">View Elos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#confirmResetModal">Reset Elos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div id="WELCOME">
-        <h1>Hello, world!</h1>
-        <button id="getStartedBtn">Get Started</button>
+        <!-- <h1 class="text-white">Hello, world!</h1> -->
+        <!-- <button id="getStartedBtn">Get Started</button> -->
     </div>
-    <div id="mainApp" class="hidden">
-        <div style="height: 100%; display: flex; flex-direction: column;"></div>
-        <!-- Main app content goes here -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Random Elo Tool</a>
-            <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
+    <div class="modal fade" id="confirmResetModal" tabindex="-1" role="dialog" aria-labelledby="confirmResetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmResetModalLabel">Confirm Reset</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to reset all Elo ratings? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="resetElos()">Reset</button>
+                </div>
             </div>
-        </nav>
-
-        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center;">
-            <h2>Welcome to the Main App View</h2>
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
-            </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        </div>
+    </div>
+    
+    <div id="CardDiv" class="container hidden">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="main-app-container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card" onclick="cardClick(0)">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="cardTitle1">Card Title 1</h5>
+                                    <!-- <p class="card-text" id="cardText1">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="col-md-6">
+                            <div class="card" onclick="cardClick(1)">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="cardTitle2">Card Title 2</h5>
+                                    <!-- <p class="card-text" id="cardText2">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <script>
+                        function updateNotecards(title1, text1, title2, text2) {
+                            document.getElementById('cardTitle1').innerText = title1;
+                            document.getElementById('cardText1').innerText = text1;
+                            document.getElementById('cardTitle2').innerText = title2;
+                            document.getElementById('cardText2').innerText = text2;
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="modalForItemEntries" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="multiLineTextBox">Enter your text:</label>
+                    <textarea class="form-control" id="multiLineTextBox" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalItemElos" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Elo Ratings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Elo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eloTableBody">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script>
-        document.getElementById('getStartedBtn').addEventListener('click', function () {
-            document.getElementById('mainApp').classList.remove('hidden');
-            document.getElementById('WELCOME').classList.add('hidden');
-            document.getElementById('mainApp').classList.add('animate');
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+        <script>
+            function populateEloTable() {
+                const elos = getElos(); // Assume this function returns an array of objects with 'name' and 'elo' properties
+                const tableBody = document.getElementById('eloTableBody');
+                tableBody.innerHTML = ''; // Clear existing rows
+    
+                elos.forEach((elo, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <th scope="row">${index + 1}</th>
+                        <td>${elo.name}</td>
+                        <td>${elo.elo}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            function saveChanges() {
+                const text = document.getElementById('multiLineTextBox').value;
+                console.log(text);
+                // Call the function to save the text
+                initElos(text);
+            }
+    
+            // Call the function to populate the table when the modal is shown
+            $('#modalItemElos').on('show.bs.modal', populateEloTable);
+        </script>
+
 </body>
 
 </html>
