@@ -71,9 +71,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top w-100">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark w-100">
         <a class="navbar-brand mx-auto" href="#">Random Elo Tool</a>
-        <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#navbarNav"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -94,6 +94,24 @@
     <div id="WELCOME">
         <!-- <h1 class="text-white">Hello, world!</h1> -->
         <!-- <button id="getStartedBtn">Get Started</button> -->
+    </div>
+
+    <div id="GetStarted" class="container text-center mt-5" style="background-color: #333; padding: 20px; border-radius: 10px;">
+          <h3 class="text-white">This tool allows you to manage and view Elo ratings for various items. Use the navigation bar to:</h3>
+
+        <ul class="text-white list-unstyled">
+
+             <li><strong>New Entries:</strong> Add new items to be rated. You can put in starting elos by placing a tab with a float after your item.</li>
+
+              <li><strong>View Elos:</strong> See the current Elo ratings of all items sorted from top to bottom. Easily copy pasteable!</li>
+
+               <li><strong>Reset Elos:</strong> Reset all Elo ratings to their initial state (1000 elo, K=100).</li>
+
+            </ul>
+
+         </div>
+
+        </ul>
     </div>
 
     <div class="modal fade" id="confirmResetModal" tabindex="-1" role="dialog" aria-labelledby="confirmResetModalLabel" aria-hidden="true">
@@ -138,14 +156,6 @@
                             </div>
                         </div>
                     </div>
-                    <script>
-                        function updateNotecards(title1, text1, title2, text2) {
-                            document.getElementById('cardTitle1').innerText = title1;
-                            document.getElementById('cardText1').innerText = text1;
-                            document.getElementById('cardTitle2').innerText = title2;
-                            document.getElementById('cardText2').innerText = text2;
-                        }
-                    </script>
                 </div>
             </div>
         </div>
@@ -156,20 +166,20 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">New Item Entries</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="multiLineTextBox">Enter your text:</label>
+                    <label for="multiLineTextBox">Enter your items to rate:</label>
                     <textarea class="form-control" id="multiLineTextBox" rows="5"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="saveChanges(); $('#modalForItemEntries').modal('hide');">Save changes</button>
             </div>
         </div>
     </div>

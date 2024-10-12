@@ -45,6 +45,7 @@ function updateCards() {
     document.getElementById('cardTitle1').innerText = card1;
     document.getElementById('cardTitle2').innerText = card2;
     $('#CardDiv').removeClass('hidden').addClass('animate');
+    $('#GetStarted').addClass('hidden');
     console.log(card1, card2);
 }
 
